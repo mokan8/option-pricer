@@ -1,6 +1,7 @@
 from instruments.vanilla import VanillaOption
 from models.black_scholes import BlackScholes
 from models.monte_carlo import MonteCarlo
+from models.binomial import BinomialTree
 
 if __name__ == "__main__":
 
@@ -23,3 +24,14 @@ if __name__ == "__main__":
 
     mc_price = MonteCarlo.price(option, paths=100_000, seed=42)
     print(f"Monte Carlo Price: {mc_price:.4f}")
+
+
+
+    # European option (same as before)
+    bt_price = BinomialTree.price(option, steps=100)
+    print(f"Binomial Tree Price (European): {bt_price:.4f}")
+
+    # Example: American option
+    option.is_american = True
+    bt_american_price = BinomialTree.price(option, steps=100)
+    print(f"Binomial Tree Price (American): {bt_american_price:.4f}")
