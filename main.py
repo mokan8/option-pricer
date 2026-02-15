@@ -2,6 +2,7 @@ from instruments.vanilla import VanillaOption
 from models.black_scholes import BlackScholes
 from models.monte_carlo import MonteCarlo
 from models.binomial import BinomialTree
+from models.implied_vol import ImpliedVol
 
 if __name__ == "__main__":
 
@@ -35,3 +36,9 @@ if __name__ == "__main__":
     option.is_american = True
     bt_american_price = BinomialTree.price(option, steps=100)
     print(f"Binomial Tree Price (American): {bt_american_price:.4f}")
+
+    # Assume market price slightly higher than Black-Scholes
+    market_price = 12.0
+
+    iv = ImpliedVol.solve(option, market_price)
+    print(f"Implied Volatility: {iv:.4f}")
