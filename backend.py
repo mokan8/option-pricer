@@ -5,8 +5,16 @@ from models.black_scholes import BlackScholes
 from models.monte_carlo import MonteCarlo
 from models.binomial import BinomialTree
 from models.implied_vol import ImpliedVol
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="Option Pricer API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://mokan8.github.io"],  # your site URL
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 class OptionInput(BaseModel):
@@ -66,3 +74,4 @@ def price(option_input: OptionInput):
         "rho": rho,
         "implied_vol": implied_vol
     }
+    
